@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1>UPLOAD</h1>
+
+    <div>{{ score }}</div>
+    <br/>
+
+    <h1>Fingerprint One</h1>
+    <div>
+        <img style="display: block; margin: 0 auto;" height="500px" src="{{url_for('static',filename=name_finger1)}}"/>
+    </div>
+
+    <h1>Fingerprint Two</h1>
+    <div>
+        <img style="display: block; margin: 0 auto;" height="500px" src="{{url_for('static',filename=name_finger2)}}"/>
+    </div>
+
+
+</body>
+</html>

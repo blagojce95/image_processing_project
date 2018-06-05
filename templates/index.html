@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload pictures</title>
+</head>
+<body>
+
+    <h1>Upload two fingerprint pictures here:</h1>
+
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <label>Select First Fingerprint Image</label>
+        <input type="file" name="fingerOneToUpload" id="fingerOneToUpload">
+        <br/>
+        <br/>
+        <br/>
+
+        <label>Select Second Fingerprint Image</label>
+        <input type="file" name="fingerTwoToUpload" id="fingerTwoToUpload">
+        <br/>
+        <br/>
+        <br/>
+
+        <input type="submit" value="Upload Fingers" name="submit">
+    </form>
+
+</body>
+</html>
