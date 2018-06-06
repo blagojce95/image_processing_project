@@ -1,11 +1,13 @@
 from flask import Flask, render_template, request, redirect, jsonify
-from nocache import  nocache
+from nocache import nocache
+from flask_bootstrap import Bootstrap
 import os
 import time
 
 from app import compare
 
 app = Flask(__name__)
+Bootstrap(app)
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 

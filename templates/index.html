@@ -1,28 +1,129 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Upload pictures</title>
-</head>
-<body>
 
-    <h1>Upload two fingerprint pictures here:</h1>
+{% extends "bootstrap/base.html" %}
 
-    <form action="/upload" method="post" enctype="multipart/form-data">
-        <label>Select First Fingerprint Image</label>
-        <input type="file" name="fingerOneToUpload" id="fingerOneToUpload">
-        <br/>
-        <br/>
-        <br/>
+{% block styles %}
 
-        <label>Select Second Fingerprint Image</label>
-        <input type="file" name="fingerTwoToUpload" id="fingerTwoToUpload">
-        <br/>
-        <br/>
-        <br/>
+    {{ super() }}
+    <style>
+        .inputButton {
+            height: 30px;
+            width: 200px;
+            border: 1.5px dashed deepskyblue;
+            cursor: pointer;
+            border-radius: 10px;
+            vertical-align: middle;
+            text-align: center;
+        }
 
-        <input type="submit" value="Upload Fingers" name="submit">
-    </form>
+        #child, #childTwo {
+            line-height: 27px;
+        }
 
-</body>
-</html>
+        div.inputButton:hover {
+            background-color: #e6f2ff;
+        }
+
+        .loader {
+            border: 5px solid #333;
+            border-radius: 30px;
+            height: 50px;
+            left: 50%;
+            margin: -15px 0 0 -15px;
+            opacity: 0;
+            position: absolute;
+            top: 50%;
+            width: 50px;
+
+            animation: pulsate 1s ease-out;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes pulsate {
+            0% {
+                transform: scale(.1);
+                opacity: 0.0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.2);
+                opacity: 0;
+            }
+        }
+
+    </style>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="container" id="mainContent" style="margin-top: 2rem; width: 35%">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><h1>Upload two fingerprint pictures here:</h1></div>
+            <div class="panel-body">
+                <form action="/upload" method="post" enctype="multipart/form-data">
+                    <label>Select first fingerprint image</label>
+                    <div id="yourBtn" class="inputButton" onclick="getFile()">
+                        <div id="child">Choose a file</div>
+                    </div>
+                    <!-- this is your file input tag, so i hide it!-->
+                    <div style='height: 0;width:0; overflow:hidden;'>
+                        <input id="fingerOneToUpload" name="fingerOneToUpload" type="file" value="upload"/>
+                    </div>
+
+                    <br/>
+                    <br/>
+                    <br/>
+
+                    <label>Select second fingerprint image</label>
+                    <div id="yourBtn" class="inputButton" onclick="getFileTwo()">
+                        <div id="childTwo">Choose a file</div>
+                    </div>
+                    <!-- this is your file input tag, so i hide it!-->
+                    <div style='height: 0;width:0; overflow:hidden;'>
+                        <input id="fingerTwoToUpload" name="fingerTwoToUpload" type="file" value="upload"/>
+                    </div>
+                    <br/>
+                    <br/>
+                    <br/>
+
+                    <button class="btn btn-success center-block" type="submit" name="submit" onclick="showLoader()">
+                        Upload fingerprints
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="loader" id="loader" style="display: none"></div>
+
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script>
+        function getFile() {
+            document.getElementById("fingerOneToUpload").click();
+            $('#fingerOneToUpload').on('input', function () {
+                var text = $(this).val(); // get the current value of the input field.
+                text = text.substring(text.lastIndexOf("\\") + 1, text.length);
+                $('#child').text(text);
+            });
+        }
+
+        function getFileTwo() {
+            document.getElementById("fingerTwoToUpload").click();
+            $('#fingerTwoToUpload').on('input', function () {
+                var text = $(this).val(); // get the current value of the input field.
+                text = text.substring(text.lastIndexOf("\\") + 1, text.length);
+                $('#childTwo').text(text);
+            });
+        }
+
+        function showLoader() {
+            $('#mainContent').css({display: "none"});
+            $('#loader').css({display: "block"})
+        }
+    </script>
+{% endblock %}

@@ -1,26 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "bootstrap/base.html" %}
 
-<h1>UPLOAD</h1>
+{% block content %}
+    <div class="container">
+        <h1>Result</h1>
+        <br/>
+        <div class="panel-group">
 
-    <div>{{ score }}</div>
-    <br/>
+            <div class="panel panel-default">
+                <div class="panel-heading">Fingerprint One</div>
+                <div class="panel-body">
+                    <img class="img-responsive" style="display: block; margin: 0 auto;" height="500px"
+                         src="{{ url_for('static',filename=name_finger1) }}"/>
+                </div>
+            </div>
+        </div>
 
-    <h1>Fingerprint One</h1>
-    <div>
-        <img style="display: block; margin: 0 auto;" height="500px" src="{{url_for('static',filename=name_finger1)}}"/>
+        <div class="panel panel-default">
+            <div class="panel-heading">Fingerprint Two</div>
+            <div class="panel-body">
+                <img class="img-responsive" style="display: block; margin: 0 auto;" height="500px"
+                     src="{{ url_for('static',filename=name_finger2) }}"/>
+            </div>
+            <div class="panel-footer">
+                <h4 id="score" style="display: inline; margin-right: 1rem">Score: {{ score }}</h4>
+                <h4 id="scoreText" style="display: inline;">{{ scoreText }}</h4>
+                <div class="float-right"><button class="btn btn-info" href="/" type="submit">Back</button></div>
+            </div>
+        </div>
     </div>
 
-    <h1>Fingerprint Two</h1>
-    <div>
-        <img style="display: block; margin: 0 auto;" height="500px" src="{{url_for('static',filename=name_finger2)}}"/>
-    </div>
+{% endblock %}
+
+{% block scripts %}
+
+    {{ super() }}
+    <script>
+        $(document).ready(function () {
+            if (parseFloat($('#score').val()) < 33) {
+                $('#scoreText').text("Fingerprint matches.").css( {color: "lightgreen"} );
+            }
+            else {
+                $('#scoreText').text("Fingerprint does not match.").css({ color: "red" });
+
+            }
+        });
+    </script>
 
 
-</body>
-</html>
+{% endblock %}
+
+
+
